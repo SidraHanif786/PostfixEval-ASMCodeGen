@@ -1,3 +1,10 @@
+// Sample arguments to test
+//  23+4*      res 20
+//  572+*8-    res 37
+//  92/34*+    res 16
+//  63/5*2+    res 12
+//  921+/4*    res 12
+
 #include <iostream>
 #include <stack>
 #include <string>
@@ -20,36 +27,36 @@ int main(int argc, char *argv[])
     }
     //=====================================================
 
-    stack<int> store;
     string token = "Token ";
     string push = "Push ";
     string pop = "Pop  ";
     string blank = "      ";
 
+    //============== Start of the operations =========
+    stack<int> store;
     for (int i = 0; i < exp.length(); i++)
     {
         char c = exp[i];
+        //===== pushing the operands
         if (isdigit(c))
         {
-            int integer = atoi(&exp[i]);
+            int integer = c - '0'; // THIS LINE GOT ME STUCK FOR 3 HOURS :(
             store.push(integer);
             cout << token << exp[i] << blank << push << exp[i] << endl;
         }
         else
         {
+            //====== handling expressions that are not well formed.
+            if (store.size() < 2)
+            {
+                cout << "Error: Not enough operands for operator " << endl;
+                return 1;
+            }
             //=========pop first number
             int first = store.top();
-            // while (first >= 10)
-            // {
-            //     first /= 10;
-            // }
             store.pop();
             //=========pop second number
             int second = store.top();
-            // while (second >= 10)
-            // {
-            //     second /= 10;
-            // }
             store.pop();
             int res;
 
@@ -59,7 +66,14 @@ int main(int argc, char *argv[])
             }
             if (exp[i] == '/')
             {
-                res = second / first;
+                if (second > first)
+                {
+                    res = second / first;
+                }
+                else
+                {
+                    res = first / second;
+                }
             }
             if (exp[i] == '+')
             {
@@ -67,20 +81,29 @@ int main(int argc, char *argv[])
             }
             if (exp[i] == '-')
             {
-                res = first - second;
+                if (second > first)
+                {
+                    res = second - first;
+                }
+                else
+                {
+                    res = first - second;
+                }
             }
             store.push(res);
             cout << token << exp[i] << blank << pop << first << blank << pop << second << blank << push << res << endl;
         }
     }
-    cout << endl;
-    cout << token << "END" << blank << push << store.top() << endl;
-
+    if (!store.empty())
+    {
+        cout << endl;
+        cout << token << "END" << blank << "Push " << store.top() << endl;
+    }
+    //====== handling expressions that are not well formed.
+    else
+    {
+        cout << "Error: No result available" << endl;
+        return 1;
+    }
     return 0;
 }
-
-//  23+4*   20
-//  572+*8-    35
-//  92/34*+     11
-//   63/5*2+     12
-//    921+/4*     12
