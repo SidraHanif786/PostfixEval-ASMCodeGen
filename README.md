@@ -12,15 +12,15 @@ To use the program, follow these steps:
 ### Example
 For the postfix expression `921+/4*`, the output of the program might resemble the following:
 
-Token 9      Push 9
-Token 2      Push 2
-Token 1      Push 1
-Token +      Pop  1      Pop  2      Push 3
-Token /      Pop  3      Pop  9      Push 3
-Token 4      Push 4
-Token *      Pop  4      Pop  3      Push 12
+- Token 9      Push 9
+- Token 2      Push 2
+- Token 1      Push 1
+- Token +      Pop  1      Pop  2      Push 3
+- Token /      Pop  3      Pop  9      Push 3
+- Token 4      Push 4
+- Token *      Pop  4      Pop  3      Push 12
 
-Token END      Pop  12
+- Token END      Pop  12
 
 
 
@@ -38,15 +38,15 @@ This extended version of the postfix evaluation program generates machine instru
 ### Example
 For the postfix expression `a b c + * d e * -`, the generated assembly code would be:
 
-LOAD b
-ADD c
-STORE temp1
-LOAD a
-MULT temp1
-STORE temp2
-LOAD d
-MULT e
-STORE temp3
-LOAD temp2
-SUB temp3
-STORE temp4
+- LOAD b
+- ADD c
+- STORE temp1
+- LOAD a
+- MULT temp1
+- STORE temp2
+- LOAD d
+- MULT e
+- STORE temp3
+- LOAD temp2
+- SUB temp3
+- STORE temp4
